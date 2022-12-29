@@ -4,7 +4,7 @@ import com.roc.rocket.decoder.RocketProtocolDecoder;
 import com.roc.rocket.encoder.RocketResponseEncoder;
 import com.roc.rocket.exception.ServerStartFailException;
 import com.roc.rocket.provider.handler.ProviderChannelHandler;
-import com.roc.rocket.serializer.JsonSerializer;
+import com.roc.rocket.serializer.ProtostuffSerializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -69,8 +69,8 @@ public class Server {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline channelPipeline = ch.pipeline();
-                        channelPipeline.addLast(new RocketProtocolDecoder(new JsonSerializer()));
-                        channelPipeline.addLast(new RocketResponseEncoder(new JsonSerializer()));
+                        channelPipeline.addLast(new RocketProtocolDecoder(new ProtostuffSerializer()));
+                        channelPipeline.addLast(new RocketResponseEncoder(new ProtostuffSerializer()));
                         channelPipeline.addLast(providerChannelHandler);
 
                     }

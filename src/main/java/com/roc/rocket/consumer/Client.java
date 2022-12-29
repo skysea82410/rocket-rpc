@@ -5,7 +5,7 @@ import com.roc.rocket.decoder.RocketResponseDecoder;
 import com.roc.rocket.encoder.RocketProtocolEncoder;
 import com.roc.rocket.exception.ClientConnectionTimeoutException;
 import com.roc.rocket.protocol.RocketProtocol;
-import com.roc.rocket.serializer.JsonSerializer;
+import com.roc.rocket.serializer.ProtostuffSerializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -64,8 +64,8 @@ public class Client {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline channelPipeline = ch.pipeline();
-                        channelPipeline.addLast(new RocketProtocolEncoder(new JsonSerializer()));
-                        channelPipeline.addLast(new RocketResponseDecoder(new JsonSerializer()));
+                        channelPipeline.addLast(new RocketProtocolEncoder(new ProtostuffSerializer()));
+                        channelPipeline.addLast(new RocketResponseDecoder(new ProtostuffSerializer()));
                         channelPipeline.addLast(consumerMethodInboundHandler);
                     }
                 });
@@ -75,7 +75,7 @@ public class Client {
     private void connect(Bootstrap bootstrap, String ip, Integer port, Integer retry) {
         ChannelFuture channelFuture = bootstrap.connect(ip, port).addListener(future -> {
             if (future.isSuccess()) {
-                log.info("连接服务器成功");
+                log.info("连接服务器{}成功", ip);
                 isConnection = true;
                 isConnecting = false;
             } else if (retry == 0) {

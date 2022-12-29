@@ -29,18 +29,8 @@ public class RocketProtocolBody implements Serializable {
     private Object[] methodValues;
 
     /**
-     * 返回值
+     * 返回值类型
      */
-    private Object returnValue;
-
-    /**
-     * 请求端
-     */
-    private String client;
-
-    /**
-     * 目的端
-     */
-    private String server;
+    private Class<?> returnValueType;
 
 }

@@ -44,6 +44,7 @@ public class RpcProxy implements InvocationHandler {
         rocketProtocolBody.setFullClassName(this.clazz.getName());
         rocketProtocolBody.setMethodName(method.getName());
         rocketProtocolBody.setMethodValues(args);
+        rocketProtocolBody.setReturnValueType(method.getReturnType());
         RocketProtocol rocketProtocol = new RocketProtocol(UuidUtils.createId(), rocketProtocolBody);
         RpcExecutor rpcExecutor = ApplicationContextUtils.getBean(RpcExecutor.class);
         //执行远程调用方法

@@ -2,7 +2,7 @@ package com.roc.rocket.registry;
 
 import com.roc.common.utils.CollectionUtils;
 import com.roc.rocket.provider.RocketProviderDefinition;
-import com.roc.rocket.registry.impl.DefaultProviderRegistry;
+import com.roc.rocket.registry.impl.NacosProviderRegistry;
 import com.roc.rocket.registry.provider.Provider;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ public class ProviderRegistryExecutor {
     private IProviderRegistry providerRegistry;
 
     @Resource
-    private DefaultProviderRegistry defaultProviderRegistry;
+    private NacosProviderRegistry nacosProviderRegistry;
 
     public ProviderRegistryExecutor() {
     }
@@ -32,7 +32,7 @@ public class ProviderRegistryExecutor {
     @PostConstruct
     private void init() {
         if (this.providerRegistry == null) {
-            this.providerRegistry = defaultProviderRegistry;
+            this.providerRegistry = nacosProviderRegistry;
         }
     }
 

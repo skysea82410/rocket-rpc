@@ -15,7 +15,7 @@ public class JsonSerializer implements Serializer {
     }
 
     @Override
-    public <T> T deserialize(Class<?> clazz, byte[] bytes) {
+    public <T> T deserialize(Class<T> clazz, byte[] bytes) {
         return JSON.parseObject(bytes, clazz);
     }
 }

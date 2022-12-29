@@ -8,6 +8,6 @@ public interface Serializer {
 
     byte[] serialize(Object o);
 
-    <T> T deserialize(Class<?> clazz, byte[] bytes);
-    
+    <T> T deserialize(Class<T> clazz, byte[] bytes);
+
 }
